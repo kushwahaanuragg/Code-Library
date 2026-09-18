@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do App</title>
+</head>
+<body>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background: linear-gradient(to bottom right, black, rgb(41, 41, 41), black);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  input {
+    height: 20px;
+  }
+
+  #title {
+    padding: 30px;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+
+  h1 {
+    font-size: 50px;
+  }
+
+  #list {
+    border: solid 10px black;
+    border-radius: 30px;
+    background-color: rgb(69, 69, 69);
+    height: 600px;
+    width: 400px;
+  }
+  
+  li {
+    display: flex;
+    flex: 1;
+    list-style: none;
+    padding: 10px;
+    color: white;
+    font-size: 20px;
+  }
+
+  li::before {
+    content: '';
+    height: 20px;
+    width: 20px;
+    border: solid 3px black;
+    border-radius: 50%;
+  }
+</style>
+  <div id="title"><h1 >To-do List</h1></div>
+  
+
+
+
+  <div id="list">
+    <div style="border: solid 10px rgb(36, 36, 36); border-radius: 20px;">
+      <h1 style="padding: 10px; text-decoration: underline">Tasks</h1>
+      <input id="input" placeholder="Add Task"> 
+      <h3 id="add" onclick="addItem()">Add+</h3>
+      <h3 id="clear" onclick="clearItems()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>Clear</h3>
+    </div>
+
+    <div>
+      <ul id="taskList"></ul>
+    </div>
+  </div>
+
+<script>
+  const item = document.getElementsByClassName("listItems")
+  const taskList = document.getElementById("taskList")
+  const add = document.getElementById("add")
+  const inputItem = document.getElementById("input")
+
+  function addItem() {
+    const listItem = document.createElement("li");
+    taskList.appendChild(listItem);
+    listItem.textContent = inputItem.value;
+
+    listItem.onclick = function() {
+      toggleTask(this)
+    }
+    inputItem.value = ""
+  }
+
+function clearItems() {
+    taskList.innerHTML = "";
+}
+
+  function toggleTask(item) {
+      if (item.style.textDecoration === "line-through") {
+          item.style.textDecoration = "none";
+      } else {
+          item.style.textDecoration = "line-through";
+      }
+  }
+</script>
+
+</body>
+</html>
