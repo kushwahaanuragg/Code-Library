@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Game</title>
+  </head>
+  <body id="body">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100vw;
+        background: linear-gradient(
+          to bottom right,
+          black,
+          rgb(30, 30, 30),
+          black
+        );
+        transition: all 0.5s;
+      }
+
+      nav {
+        position: fixed;
+        top: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        height: 6vw;
+        width: 100vw;
+        background-color: grey;
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+      }
+
+      nav h1 {
+        font-size: 3vw;
+        font-family: Arial, Helvetica, sans-serif;
+        padding-left: 10%;
+      }
+
+      #box {
+        height: fit-content;
+        width: 70vw;
+        background-color: bisque;
+        border: solid 5px black;
+        border-radius: 5rem;
+      }
+
+      #box h1 {
+        font-size: 40px;
+        color: navy;
+        margin: 20px;
+      }
+
+      #box h3 {
+        height: fit-content;
+        width: 90%;
+        border: solid 3px black;
+        border-radius: 10px;
+        margin: 20px;
+        transition: all 0s;
+      }
+
+      #box h3:hover {
+        color: white;
+        background-color: black;
+        cursor: pointer;
+      }
+
+      button {
+        height: 40px;
+        width: 40px;
+        color: white;
+        background-color: black;
+      }
+    </style>
+
+    <nav>
+      <h1 id="correct">✅Correct: 0</h1>
+      <h1 id="incorrect">❌Incorrect: 0</h1>
+      <h1 id="attempted">Attempted: 0</h1>
+    </nav>
+
+    <div id="box">
+      <h1 id="questionTag">Question?</h1>
+      <h3 class="options" id="1" onclick="checkAns(this)">Option 1</h3>
+      <h3 class="options" id="2" onclick="checkAns(this)">Option 2</h3>
+      <h3 class="options" id="3" onclick="checkAns(this)">Option 3</h3>
+      <h3 class="options" id="4" onclick="checkAns(this)">Option 4</h3>
+      <button onclick="nextQuestion()">Next</button>
+    </div>
+
+    <script>
+      // Questions
+
+      const questionList = [
+        {
+          question: "Which language is used to style a webpage?",
+          options: ["HTML", "CSS", "JavaScript", "Python"],
+          answer: "CSS",
+        },
+        {
+          question: "Which language is used to add interactivity to webpages?",
+          options: ["HTML", "CSS", "JavaScript", "SQL"],
+          answer: "JavaScript",
+        },
+        {
+          question: "What does HTML stand for?",
+          options: [
+            "Hyper Text Markup Language",
+            "High Text Machine Language",
+            "Hyper Tool Multi Language",
+            "Home Text Markup Language",
+          ],
+          answer: "Hyper Text Markup Language",
+        },
+        {
+          question: "Which symbol is used for an ID selector in CSS?",
+          options: [
+            "The symbol => .",
+            "The symbol => #",
+            "The symbol => *",
+            "The symbol => &",
+          ],
+          answer: "The symbol => #",
+        },
+      ];
+
+      // Variables
+
+      const body = document.getElementById("body");
+      const questionElement = document.getElementById("questionTag");
+      const correctElement = document.getElementById("correct");
+      const incorrectElement = document.getElementById("incorrect");
+      const attemptedElement = document.getElementById("attempted");
+
+      const option1 = document.getElementById("1");
+      const option2 = document.getElementById("2");
+      const option3 = document.getElementById("3");
+      const option4 = document.getElementById("4");
+
+      let currentQ = 0;
+      let correct = 0;
+      let incorrect = 0;
+      let attempted = 0;
+
+      // Show Question
+
+      function showQuestion() {
+        questionElement.textContent = questionList[currentQ].question;
+
+        option1.textContent = questionList[currentQ].options[0];
+        option2.textContent = questionList[currentQ].options[1];
+        option3.textContent = questionList[currentQ].options[2];
+        option4.textContent = questionList[currentQ].options[3];
+      }
+
+      // Next Question
+
+      function nextQuestion() {
+        if (currentQ == questionList.length - 1) {
+          currentQ = 0;
+        } else {
+          currentQ++;
+        }
+
+        showQuestion();
+      }
+
+      // Start Quiz
+
+      showQuestion();
+
+      // Check Answer
+
+      function checkAns(currentOption) {
+        let selectedOption = currentOption.textContent;
+
+        if (selectedOption == questionList[currentQ].answer) {
+          body.style.background = "lime";
+          setTimeout(function () {
+            body.style.background = "";
+          }, 1500);
+          correct++;
+          nextQuestion();
+        } else {
+          body.style.background = "red";
+          setTimeout(function () {
+            body.style.background = "";
+          }, 1500);
+          incorrect++;
+        }
+
+        attempted++;
+
+        correctElement.textContent = `✅Correct: ${correct}`;
+        incorrectElement.textContent = `❌Incorrect: ${incorrect}`;
+        attemptedElement.textContent = `Attempted: ${attempted}`;
+      }
+    </script>
+  </body>
+</html>
