@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Study Dashboard</title>
+  </head>
+  <body>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100vw;
+        background: linear-gradient(to bottom right, aqua, blue);
+      }
+
+      #container {
+        height: max-content;
+        width: 70vw;
+        background: linear-gradient(
+          to bottom right,
+          antiquewhite,
+          rgb(148, 141, 43)
+        );
+        padding: 20px;
+        border: solid 10px gold;
+        border-radius: 30px;
+        padding: 70px;
+      }
+
+      header {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      header h1 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 40px;
+        text-decoration: underline;
+      }
+
+      #time {
+        display: flex;
+        flex-wrap: wrap;
+        width: fit-content;
+        display: flex;
+      }
+
+      select {
+        height: 20px;
+        width: 50px;
+        cursor: pointer;
+      }
+
+      input {
+        border-radius: 10px;
+        margin: 10px;
+        padding: 5px;
+        background-color: black;
+        color: white;
+      }
+
+      #time button {
+        height: 25px;
+        width: 40px;
+        margin: 15px;
+        cursor: pointer;
+        background-color: aqua;
+      }
+
+      #day {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      #day button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 15px;
+        height: 25px;
+        width: 100px;
+        background: linear-gradient(to bottom right, purple, magenta, purple);
+        color: white;
+        border: solid 2px white;
+        border-radius: 20px;
+        margin: 1%;
+      }
+
+      #taskListBox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: fit-content;
+        width: 100%;
+      }
+
+      #taskList {
+        position: relative;
+        top: 30px;
+        height: 100%;
+        width: 90%;
+        background-color: gray;
+        border: solid 10px black;
+        border-radius: 30px;
+        padding: 10px;
+      }
+
+      #taskList h4 {
+        font-family: Impact;
+        font-weight: 100;
+        margin: 15px;
+      }
+
+      #taskList h4 ul {
+        font-family: arial;
+        font-size: small;
+        margin-left: 15px;
+      }
+    </style>
+
+    <div id="container">
+      <header>
+        <h1>Study Dashboard</h1>
+      </header>
+
+      <div id="time">
+        <select id="hour">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+          <option>9</option>
+          <option>10</option>
+          <option>11</option>
+          <option>12</option>
+        </select>
+        <h3>:</h3>
+        <select id="minute">
+          <option>00</option>
+          <option>10</option>
+          <option>20</option>
+          <option>30</option>
+          <option>40</option>
+          <option>50</option>
+        </select>
+        <select id="am/pm">
+          <option>AM</option>
+          <option>PM</option>
+        </select>
+
+        <input placeholder="New Task" />
+        <button onclick="addTask()">Add</button>
+      </div>
+
+      <div id="day">
+        <button onclick="setDay(this)" value="Monday">Monday</button>
+        <button onclick="setDay(this)" value="Tuesday">Tuesday</button>
+        <button onclick="setDay(this)" value="Wednesday">Wednesday</button>
+        <button onclick="setDay(this)" value="Thursday">Thursday</button>
+        <button onclick="setDay(this)" value="Friday">Friday</button>
+        <button onclick="setDay(this)" value="Saturday">Saturday</button>
+        <button onclick="setDay(this)" value="Sunday">Sunday</button>
+      </div>
+
+      <div id="taskListBox">
+        <div id="taskList">
+          <h4>
+            Complete maths chapter 6.
+            <ul>
+              <li>Time: 1:00 PM</li>
+              <li>Day: Monday</li>
+            </ul>
+          </h4>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Variables
+
+      const select1 = document.getElementById("hour");
+      const select2 = document.getElementById("minute");
+      const select3 = document.getElementById("am/pm");
+      const input = document.querySelector("input");
+      const taskList = document.getElementById("taskList");
+
+      let selectedDay = "Monday";
+
+      // Add New Task
+
+      function addTask() {
+        var task = document.createElement("h4");
+        var list = document.createElement("ul");
+        var time = document.createElement("li");
+        var day = document.createElement("li");
+
+        task.textContent = input.value;
+        time.textContent =
+          "Time: " + select1.value + ":" + select2.value + " " + select3.value;
+        day.textContent = selectedDay;
+
+        task.appendChild(list);
+        list.appendChild(time);
+        list.appendChild(day);
+        taskList.appendChild(task);
+      }
+
+      function setDay(button) {
+        selectedDay = button.value;
+      }
+    </script>
+  </body>
+</html>
